@@ -1,4 +1,3 @@
-# IOSVIdeoProcessing
 class StickerItem
 {
     var scale = 0.0
@@ -33,6 +32,7 @@ class TextItem
         self.height = heightData;
     }
 }
+
 if(call.method == "gifCreation"){
                 let videoURL   = URL(fileURLWithPath: ((arguments!["basePath"] as? String)!))
                 let startTime = (arguments!["startTime"] as? NSNumber)!
@@ -43,7 +43,6 @@ if(call.method == "gifCreation"){
                 gifCreation.createGIFFromSource(videoURL,destinationFileURL: gifPath,startTime: Float(truncating: startTime), duration: Float(truncating: duration),frameRate: Int(truncating: frameRate),size: CGSize(width: 240, height: 240)){ (result) in
                     pathOfGif.append(result!.path)
                     print("Gif saved to \(String(describing: result))")
-                    
                 }
                 result(pathOfGif[0])
             }
@@ -60,8 +59,7 @@ if(call.method == "gifCreation"){
                 for index in 0...imageList.count-1{
                     StickerItems.append(TextItem(imageData: imageList[index], xData: Double(Int(truncating: xCoordinates[index])), yData: Double(Int(truncating: yCoordinates[index])), widthData: Double(truncating: widthData[index]) ,heightData: Double(truncating: heightData[index])))
                 }
-                
-                objectOfOverlayCommand.mergeTextToVideo(videoPath: (arguments!["videoPath"] as? String)!, imageArrays: StickerItems,writingPath:writingPath,result: result)
+                      objectOfOverlayCommand.mergeTextToVideo(videoPath: (arguments!["videoPath"] as? String)!, imageArrays: StickerItems,writingPath:writingPath,result: result)
             }else if(call.method == "mergeStickerToVideo"){
                 let objectOfOverlayCommand = OverLayCommands()
                 var StickerItems = [StickerItem]()
@@ -74,8 +72,7 @@ if(call.method == "gifCreation"){
                 for index in 0...imageList.count-1{
                     StickerItems.append(StickerItem(imageData: imageList[index], xData: Double(Int(truncating: xCoordinates[index])), yData: Double(Int(truncating: yCoordinates[index])), scaleData: scales[index] ))
                 }
-                
-                objectOfOverlayCommand.mergeStickerToVideo(videoPath: (arguments!["videoPath"] as? String)!, imageArrays: StickerItems,writingPath:writingPath,result: result)
+                                objectOfOverlayCommand.mergeStickerToVideo(videoPath: (arguments!["videoPath"] as? String)!, imageArrays: StickerItems,writingPath:writingPath,result: result)
             }
             else if(call.method=="slowMotionVideo"){
                 let objectOfSpeedCommand = SpeedCommand()
@@ -99,9 +96,7 @@ if(call.method == "gifCreation"){
                         }
                     }
                 }
-                
-            }
-            else if(call.method=="Merge"){
+            }  else if(call.method=="Merge"){
                 let objectOfVideoMerging = VideoMerging()
                 objectOfVideoMerging.merge(finalPath:  (arguments!["writingPath"] as? String)!, arrayUrl: (arguments!["urlPath"] as? [String])!, result: result)
             }
@@ -111,9 +106,7 @@ if(call.method == "gifCreation"){
                 let assetFromUrl =  AVURLAsset(url: originalVideoPath, options: [AVURLAssetPreferPreciseDurationAndTimingKey:true])
                 let musicobj = MusicCommand()
                 musicobj.removeAudio(videos: [assetFromUrl], writingPath: writingUrl, result: result)
-                
-            }
-            else if (call.method=="addMusicToVideo"){
+             } else if (call.method=="addMusicToVideo"){
                 let originalVideoPath = URL(fileURLWithPath: (arguments!["videoPath"] as? String)!)
                 let musicPath = URL(fileURLWithPath: (arguments!["musicPath"] as? String)!)
                 let originalVideoVolume = ((arguments!["volume"] as? NSNumber)!)
@@ -126,7 +119,6 @@ if(call.method == "gifCreation"){
                 let musicAsset = MusicCommand.Asset(localURL: musicPath, volume: Float(musicVolume))
                 let musicobj = MusicCommand()
                 musicobj.mergeMusic(videos: [assetFromUrl], writingPath: writingUrl, video: videoAsset, audios: [musicAsset], audioStartTime: startCMtime, result: result)
-                
             }
             else if (call.method=="adjustVideoVolume"){
                 let originalVideoPath = URL(fileURLWithPath: (arguments!["videoPath"] as? String)!)
@@ -136,7 +128,6 @@ if(call.method == "gifCreation"){
                 let musicAsset = MusicCommand.Asset(localURL: originalVideoPath, volume: Float(originalVideoVolume))
                 let musicobj = MusicCommand()
                 musicobj.adjustVideoVolume(videos: [assetFromUrl], writingPath: writingUrl, video: musicAsset,result: result)
-                
             }
             else if(call.method=="scaleVideo"){
                 let objectScaling = VideoScaling()
@@ -152,7 +143,6 @@ if(call.method == "gifCreation"){
                 let originalPath = URL(fileURLWithPath: (arguments!["videoPath"] as? String)!)
                 let  timeMS = ((arguments!["timeMS"] as? NSNumber)!)
                 let  numberOfThumb = ((arguments!["numberOfThumb"] as? NSNumber)!)
-                
                 ///running function on background thread
                 DispatchQueue.global(qos: .background).async {
                     let data =   obj.thumbGeneratiion(url:originalPath,timeMS:Double(timeMS),numberOfThumb:Double(Int(numberOfThumb)))
