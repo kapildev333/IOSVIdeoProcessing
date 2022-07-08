@@ -1,5 +1,4 @@
 # IOSVIdeoProcessing
-
 class StickerItem
 {
     var scale = 0.0
@@ -34,8 +33,6 @@ class TextItem
         self.height = heightData;
     }
 }
-
-
 if(call.method == "gifCreation"){
                 let videoURL   = URL(fileURLWithPath: ((arguments!["basePath"] as? String)!))
                 let startTime = (arguments!["startTime"] as? NSNumber)!
