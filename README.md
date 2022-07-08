@@ -1,3 +1,5 @@
+Hello Guys this is repo contains basic features of trimming , scaling video to perticular resolution by even maintaining aspectratio of video. It can also contains features such as merging audio to video by adjusting both video and audio volumes.You can also add multiple stickers to video.It also has commands for converting video to timelapse and slow motion.
+
         if(call.method == "gifCreation"){
                 let videoURL   = URL(fileURLWithPath: ((arguments!["basePath"] as? String)!))
                 let startTime = (arguments!["startTime"] as? NSNumber)!
@@ -12,22 +14,7 @@
                 }
                 result(pathOfGif[0])
             }
-            else if(call.method == "mergeTextToVideo"){
-                let objectOfOverlayCommand = OverLayCommands()
-                var StickerItems = [TextItem]()
-                let   imageList = ((arguments!["imageArrays"] as? [String])!)
-                let  widthData = ((arguments!["widthData"] as? [NSNumber])!)
-                let heightData = ((arguments!["heightData"] as? [NSNumber])!)
-                let xCoordinates = (arguments!["xCoordinates"] as? [NSNumber])!
-                let  yCoordinates = (arguments!["yCoordinates"] as? [NSNumber])!
-                let writingPath = (arguments!["writingPath"] as? String)!
-                print(imageList)
-                for index in 0...imageList.count-1{
-                    StickerItems.append(TextItem(imageData: imageList[index], xData: Double(Int(truncating: xCoordinates[index])), yData: Double(Int(truncating: yCoordinates[index])), widthData: Double(truncating: widthData[index]) ,heightData: Double(truncating: heightData[index])))
-                }
-                
-                objectOfOverlayCommand.mergeTextToVideo(videoPath: (arguments!["videoPath"] as? String)!, imageArrays: StickerItems,writingPath:writingPath,result: result)
-            }else if(call.method == "mergeStickerToVideo"){
+            else if(call.method == "mergeStickerToVideo"){
                 let objectOfOverlayCommand = OverLayCommands()
                 var StickerItems = [StickerItem]()
                 let   imageList = ((arguments!["imageArrays"] as? [String])!)
